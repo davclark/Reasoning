@@ -5,6 +5,7 @@ Version: 1.0
 Date: 2011-10-13
 Author: Dav Clark
 Maintainer: Dav Clark <davclark@berkeley.edu>
+Depends: lattice, grid
 Description: Currently mostly functions to graph and analyze survey data
 License: GPLv3
 LazyLoad: yes

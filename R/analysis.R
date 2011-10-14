@@ -116,10 +116,10 @@ omnibus.consistency.plot <- function(df, columns, col=gray.colors, fill='red', o
 
 # for some reason, groups seems to mess something up if we don't set it
 # explicitly
-simple.scatter <- function(df, groups=NULL, ...) {
+simple.scatter <- function(df, groups=NULL, alpha=0.5, ...) {
     'splom the way I like it!'
     # For some reason, jitter.data doesn't work here
-    splom(df, jitter.x=TRUE, jitter.y=TRUE, factor=3, amount=0, alpha=0.5,
+    splom(df, jitter.x=TRUE, jitter.y=TRUE, factor=3, amount=0, alpha=alpha,
           # splom isn't terribly friendly. I figured this out mostly
           # by reading the code in panel.pairs...
           upper.panel = function(x, y, ...) {
