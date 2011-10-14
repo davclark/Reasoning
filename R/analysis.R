@@ -114,31 +114,38 @@ omnibus.consistency.plot <- function(df, columns, col=gray.colors, fill='red', o
     return(invisible(odf))
 }
 
+
+# splom isn't terribly friendly. I figured this out mostly
+# by reading the code in panel.pairs...
+
+# A helper function for simple.scatter, part of a re-factor
+cor.test.panel <- function(x, y, ...) {
+    # panel.splom(x, y,  ...)
+    # Compute cor(relation) and plot it 
+    curr.cor <- cor.test(x,y)
+    cor.txt <- sprintf('%.2f', curr.cor$estimate)
+    p.value <- sprintf('%.2f', curr.cor$p.value)
+    # parameter is df, which is N - 2
+    n <- curr.cor$parameter + 2
+    # We use grid.text here to be independent of our actual x and y
+    # ranges.
+    grid.text(bquote(r==.(cor.txt)), gp=gpar(cex=0.7),
+              y=unit(0.5, 'npc') + unit(1, 'lines') )
+    grid.text(bquote(p==.(p.value)), gp=gpar(cex=0.7),
+              y=unit(0.5, 'npc') )
+    grid.text(bquote(N==.(n)), gp=gpar(cex=0.7),
+              y=unit(0.5, 'npc') - unit(1, 'lines') )
+}
+
 # for some reason, groups seems to mess something up if we don't set it
 # explicitly
-simple.scatter <- function(df, groups=NULL, alpha=0.5, ...) {
+# NOTE - you don't seem to be able to use the formula method with this function,
+# as it messes up evaluation of groups... R formulas suck that way
+simple.scatter <- function(df, groups=NULL, subset=TRUE, alpha=0.5, ...) {
     'splom the way I like it!'
     # For some reason, jitter.data doesn't work here
     splom(df, jitter.x=TRUE, jitter.y=TRUE, factor=3, amount=0, alpha=alpha,
-          # splom isn't terribly friendly. I figured this out mostly
-          # by reading the code in panel.pairs...
-          upper.panel = function(x, y, ...) {
-              # panel.splom(x, y,  ...)
-              # Compute cor(relation) and plot it 
-              curr.cor <- cor.test(x,y)
-              cor.txt <- sprintf('%.2f', curr.cor$estimate)
-			  p.value <- sprintf('%.2f', curr.cor$p.value)
-              # parameter is df, which is N - 2
-              n <- curr.cor$parameter + 2
-              # We use grid.text here to be independent of our actual x and y
-              # ranges.
-              grid.text(bquote(r==.(cor.txt)), gp=gpar(cex=0.7),
-                        y=unit(0.5, 'npc') + unit(1, 'lines') )
-			  grid.text(bquote(p==.(p.value)), gp=gpar(cex=0.7),
-			            y=unit(0.5, 'npc') )
-			  grid.text(bquote(N==.(n)), gp=gpar(cex=0.7),
-			            y=unit(0.5, 'npc') - unit(1, 'lines') )
-          },
+          upper.panel = cor.test.panel,
           groups=groups,
           ...
          )
