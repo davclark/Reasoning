@@ -151,6 +151,7 @@ simple.scatter <- function(df, groups=NULL, subset=TRUE, alpha=0.5, ...) {
          )
 }
 
+# I think this is handled by the corr.test function in the psych package
 fisher.transform.test <- function(r1, n1, r2=NULL, n2=NULL) {
     'This is a pretty simple test, maybe modify to return more info?'
     z <- 0.5 * log((1 + r1)/(1 - r1))
