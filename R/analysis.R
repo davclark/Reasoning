@@ -27,6 +27,8 @@
 options(warn=TRUE)
 
 slide.plots <- function() {
+    # A collection of standard lattice plot settings to make them suitable for,
+    # e.g., PowerPoint slides
     trellis.par.set(fontsize=list(text=20))
 }
 
