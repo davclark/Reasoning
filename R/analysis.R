@@ -1,29 +1,6 @@
 # analysis.R - read in data from responses.csv and perform some data analysis
 # Dav Clark - 28 Nov 2010
 
-## Some general hints for other RTMD users - please edit to make more useful!
-
-# I tend to use some libraries that are not part of the standard R distribution.
-# Ask me (Dav) if you don't know how to install these libraries. The R gui
-# includes a pakcage manager.
-
-# To use this file from R, do something like the following (make sure R is in
-# the same directory first):
-# source('analysis.R')
-# main()
-# More generally, main() is just meant to provide an example - but this gets
-# you started
-
-# A BETTER way to learn how to use this file would be to look at one of the .Rnw
-# files (that should be in the directory with this)
-
-# use edit(resp.df) to view, or even resp.ed.df <- edit(resp.df) to modify the
-# data.frame. If you don't like the printing when you close the edit() window,
-# try: invisible(edit(resp.df))
-
-# In an ideal world, try to avoid automatic coercion to NA. This allows us to
-# catch some mistakes
-
 options(warn=TRUE)
 
 slide.plots <- function() {
@@ -109,7 +86,7 @@ omnibus.consistency.plot <- function(df, columns, col=gray.colors, fill='red',
                     if(length(na.inds) > 0)
                         panel.points(na.inds[,'row'], na.inds[,'col'], pch=8)
                 },
-                main, ...)
+                main=main, ...)
     )
 
     odf$survey_number <- df[rownames(odf),'survey_number']
