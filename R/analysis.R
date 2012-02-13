@@ -79,7 +79,8 @@ factor.consistency.plot <- function(df) {
     }
 }
 
-omnibus.consistency.plot <- function(df, columns, col=gray.colors, fill='red', other.df=NULL, ...) {
+omnibus.consistency.plot <- function(df, columns, col=gray.colors, fill='red',
+                                     other.df=NULL, main=NULL, ...) {
     'Sort by factor mean and subject mean, plot and return ordered data frame'
     # We're using gray.colors on order from the boss!
     odf <- df[,columns]
@@ -108,7 +109,7 @@ omnibus.consistency.plot <- function(df, columns, col=gray.colors, fill='red', o
                     if(length(na.inds) > 0)
                         panel.points(na.inds[,'row'], na.inds[,'col'], pch=8)
                 },
-                ...)
+                main, ...)
     )
 
     odf$survey_number <- df[rownames(odf),'survey_number']
