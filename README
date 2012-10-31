@@ -1,0 +1,9 @@
+This contains the "raw" R package, which needs to be installed, e.g., like this:
+
+R CMD INSTALL -l ../library Reasoning
+
+The above would be executed from this (Code) directory, and would install the
+package for use in the 'library' directory one level up from here.
+
+Mostly you should probably not be mucking with this unless you talk to "someone
+in charge" (or if you are "someone in charge"!).
