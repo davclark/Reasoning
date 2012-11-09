@@ -117,6 +117,35 @@ cor.test.panel <- function(x, y, ...) {
               y=unit(0.5, 'npc') - unit(1, 'lines') )
 }
 
+errbars.panel <- function(x, y, box.ratio, errbars, groups=NULL, ...) {
+    # I haven't tested this with groups... compare against what happens in
+    # cross-group/hypotheses.Rnw
+    panel.barchart(x, y, box.ratio, groups=groups, ...)
+
+    # This is a "heavy" R language construct but makes things pretty clean
+    x <- as.numeric(x)
+    # Some of these numbers are pretty arbitrary
+    box.width <- box.ratio / (1 + box.ratio)
+    if(!is.null(groups)) {
+        nvals <- nlevels(groups)
+        width <- box.width / nvals
+        groups <- as.numeric(groups)
+        for(i in unique(x)) {
+            ok <- x == i
+            locs <- i + width * (groups[ok] - (nvals + 1)/2)
+            panel.arrows(x0=locs, x1=locs, 
+                         y0=y[ok], y1=y[ok]+errbars[i,], angle=90, 
+                         length=width/6 , unit='npc', ...)
+        }
+    }
+    else {
+        width <- box.width / 12
+        panel.arrows(x0=x, x1=x, 
+                     y0=y, y1=y+errbars, angle=90, 
+                     length=width, unit='npc', ...)
+    }
+}
+
 # for some reason, groups seems to mess something up if we don't set it
 # explicitly
 # NOTE - you don't seem to be able to use the formula method with this function,
