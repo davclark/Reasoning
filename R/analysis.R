@@ -77,7 +77,7 @@ omnibus.consistency.plot <- function(df, columns, col=gray.colors, fill='red',
     print(
       levelplot(plotmat, col.regions=col, at=seq(0.5,9.5), 
                 scales=list(y=list(draw=FALSE),x=list(rot=60)), 
-                xlab='Sorted Items', ylab='Sorted Subjects', aspect='fill',
+                xlab='Sorted Items', ylab='Sorted Participants', aspect='fill',
                 panel=function (...) {
                     if(length(na.inds) > 0)
                         panel.rect(0.5,0.5,ncol(odf)+0.5,nrow(odf)+0.5,
